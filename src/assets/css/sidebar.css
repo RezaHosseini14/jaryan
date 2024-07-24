@@ -1,0 +1,27 @@
+.sidebar {
+  height: calc(100vh - 4rem);
+}
+.sidebar-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+}
+.sidebar-bg::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/wave.svg");
+  background-size: cover;
+  z-index: 1;
+  opacity: 0.5;
+  rotate: 25deg;
+  scale: 1.4;
+  background-position-y: 245px;
+  background-repeat: no-repeat;
+}

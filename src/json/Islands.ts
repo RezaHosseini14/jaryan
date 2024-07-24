@@ -1,0 +1,16 @@
+export const islands = [
+  { id: "abu-musa", name: "ابو موسی" },
+  { id: "qeshm", name: "قشم" },
+  { id: "faror-big", name: "فرور بزرگ" },
+  { id: "faror-small", name: "فرور کوچک" },
+  { id: "hendorabi", name: "هندروابی" },
+  { id: "hengam", name: "هنگام" },
+  { id: "hormoz", name: "هرمز" },
+  { id: "khark", name: "خارک" },
+  { id: "kish", name: "کیش" },
+  { id: "lark", name: "لارک" },
+  { id: "lavan", name: "لاوان" },
+  { id: "siri", name: "سیری" },
+  { id: "tunb-big", name: "تنب بزرگ" },
+  { id: "tunb-small", name: "تنب کوچک" },
+];
