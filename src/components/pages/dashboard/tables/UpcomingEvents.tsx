@@ -50,7 +50,6 @@ const UpcomingEvents = () => {
       ],
       type: "json",
       header: "رویداد های پیشرو",
-      documentTitle: "چاپ رویدادها",
       style: `
       @media print {
         body {

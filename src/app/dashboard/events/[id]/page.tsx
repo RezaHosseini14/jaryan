@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import { Modal, Toggle, Button, ButtonToolbar, Placeholder, Table } from "rsuite";
 const { Column, HeaderCell, Cell } = Table;
 
-import { events } from "@/json/Events";
+import { events, IEvents } from "@/json/Events";
 import SampleCard from "@/components/pages/dashboard/events/Sample.Card";
 import EventCard from "@/components/pages/dashboard/events/Event.Card";
 import PieChart from "@/components/pages/dashboard/events/charts/PieChart";
 import BarChart from "@/components/pages/dashboard/events/charts/BarChart ";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import eventimage from "@/assets/img/azizam.jpg";
 import userimage from "@/assets/img/user.jpg";
@@ -16,7 +17,7 @@ import userimage from "@/assets/img/user.jpg";
 export default function EventPage({ params }: { params: { id: any } }) {
   const [open, setOpen] = useState<boolean>(false);
   const [overflow, setOverflow] = useState<boolean>(true);
-  const [event, setEvent] = useState({});
+  const [event, setEvent] = useState<IEvents>({});
 
   const eventsCardMap = events.map((item) => (
     <EventCard
@@ -27,6 +28,22 @@ export default function EventPage({ params }: { params: { id: any } }) {
       population={item.population}
     />
   ));
+
+  const slides = [];
+  for (let i = 0; i < 4; i++) {
+    slides.push(
+      <SwiperSlide className="h-full" key={i}>
+        <div className="h-full w-full">
+          <Image
+            className="w-full h-full"
+            src={eventimage}
+            alt={`eventImage-${i}`}
+            objectFit="cover"
+          />
+        </div>
+      </SwiperSlide>
+    );
+  }
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -48,6 +65,7 @@ export default function EventPage({ params }: { params: { id: any } }) {
       date: "1403/05/10",
     },
   ];
+
   return (
     <div>
       <div className="grid grid-cols-12 gap-8">
@@ -60,7 +78,15 @@ export default function EventPage({ params }: { params: { id: any } }) {
         </div>
 
         <div className="lg:col-span-6 col-span-12 aspect-video rounded-lg overflow-hidden">
-          <Image className=" w-full h-full" src={eventimage} alt="eventImage" objectFit="cover" />
+          <Swiper
+            className="h-full"
+            spaceBetween={50}
+            slidesPerView={1}
+            onSlideChange={() => console.log("slide change")}
+            onSwiper={(swiper) => console.log(swiper)}
+          >
+            {slides}
+          </Swiper>
         </div>
 
         <SampleCard
@@ -101,7 +127,6 @@ export default function EventPage({ params }: { params: { id: any } }) {
           </div>
         </SampleCard>
       </div>
-
     </div>
   );
 }

@@ -13,12 +13,12 @@ import "@/assets/css/sidebar.css";
 
 const sidebarItemsMap = sidebarItems.map((item, index: number) => (
   <Link
-    className="flex items-center gap-3 px-4 py-2 bg-spCream rounded-xl  text-lg"
+    className="flex items-center gap-3 px-4 py-2 bg-spCream rounded-xl text-lg"
     href={item.link}
     key={index}
   >
-    <i className={item.icon}></i>
-    <span className="font-bold">{item.title}</span>
+    <i className={`${item.icon} text-spGreen`}></i>
+    <span className="font-bold text-spGreen">{item.title}</span>
   </Link>
 ));
 

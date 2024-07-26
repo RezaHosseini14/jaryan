@@ -1,4 +1,5 @@
 "use client";
+import printJS from "print-js";
 import React from "react";
 import { Table } from "rsuite";
 const { Column, HeaderCell, Cell } = Table;
@@ -7,7 +8,7 @@ const { Column, HeaderCell, Cell } = Table;
 const data = [
   {
     id: 1,
-    eventName: "کنفرانس تکنولوژی",
+    eventName: "کنفرانس",
     location: "تهران",
     topic: "نوآوری‌های تکنولوژیک",
     date: "1403/05/10",
@@ -36,13 +37,37 @@ const data = [
 ];
 
 function CarriedoutEvents() {
+  // تابع برای چاپ جدول
+  const handlePrint = () => {
+    printJS({
+      printable: data,
+      properties: [
+        { field: "id", displayName: "شناسه" },
+        { field: "eventName", displayName: "نام رویداد" },
+        { field: "location", displayName: "محل برگزاری" },
+        { field: "topic", displayName: "موضوع" },
+        { field: "date", displayName: "تاریخ" },
+      ],
+      type: "json",
+      header: "رویداد های انجام شده",
+      style: `
+      @media print {
+        body {
+          direction: rtl;
+          font-family: 'ERPyb !important';
+        }
+      }
+    `,
+    });
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold">رویداد های انجام شده</h1>
         <div className="flex items-center gap-2 text-xl">
           <i className="custom-button green-button ki-outline ki-copy"></i>
-          <i className="custom-button green-button ki-outline ki-printer"></i>
+          <i className="custom-button green-button ki-outline ki-printer" onClick={handlePrint}></i>
         </div>
       </div>
       <Table
