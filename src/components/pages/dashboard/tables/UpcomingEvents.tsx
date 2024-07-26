@@ -5,7 +5,6 @@ import printJS from "print-js";
 
 const { Column, HeaderCell, Cell } = Table;
 
-// داده‌های فیک
 const data = [
   {
     id: 1,
@@ -37,7 +36,7 @@ const data = [
   },
 ];
 
-const UpcomingEvents: React.FC = () => {
+const UpcomingEvents = () => {
   // تابع برای چاپ جدول
   const handlePrint = () => {
     printJS({

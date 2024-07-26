@@ -101,60 +101,7 @@ export default function EventPage({ params }: { params: { id: any } }) {
           </div>
         </SampleCard>
       </div>
-      <Modal overflow={overflow} open={open} onClose={handleClose}>
-        <Modal.Header>
-          <Modal.Title>حامد سلطانی</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="flex flex-col gap-4 items-center">
-            <div className="size-24 overflow-hidden rounded-full">
-              <Image className="w-full h-full" src={userimage} alt="eventImage" objectFit="cover" />
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-lg">حامد سلطانی</span>
-              <span className="text-lg">متولد ۱۳۶۶</span>
-              <span className="text-lg">ساکن تهران</span>
-            </div>
 
-            <div className="sp_border"></div>
-
-            <div className="">
-              <Table
-                className="rounded-xl"
-                height={400}
-                hover={true}
-                autoHeight={true}
-                bordered={true}
-                cellBordered={true}
-                data={guestData} // اضافه کردن داده‌ها به جدول
-              >
-                <Column width={80} align="center" fixed>
-                  <HeaderCell>شناسه</HeaderCell>
-                  <Cell dataKey="id" />
-                </Column>
-
-                <Column width={250} align="center">
-                  <HeaderCell>موضوع</HeaderCell>
-                  <Cell dataKey="topic" />
-                </Column>
-
-                <Column width={200} align="center">
-                  <HeaderCell>تاریخ</HeaderCell>
-                  <Cell dataKey="date" />
-                </Column>
-              </Table>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={handleClose} appearance="primary">
-            Ok
-          </Button>
-          <Button onClick={handleClose} appearance="subtle">
-            Cancel
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 }

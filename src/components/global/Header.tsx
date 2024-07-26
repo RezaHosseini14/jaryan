@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 
-function Heaader() {
+function Header() {
   const [theme, setTheme] = useState<boolean>(false);
   const changeThemeHandler = () => {
     setTheme(!theme);
@@ -19,12 +19,17 @@ function Heaader() {
           onClick={changeThemeHandler}
           className={`ki-outline ki-${theme ? "moon" : "sun"} text-2xl cursor-pointer`}
         ></i>
-        <Link href="/">
+        <Link href="/dashboard">
           <i className="ki-outline ki-home-2 text-2xl"></i>
         </Link>
+
+        <div className="group relative">
+          <i className="ki-outline ki-user text-2xl cursor-pointer"></i>
+          <div className="group-hover:opacity-100 group-hover:visible opacity-0 invisible transition-all absolute left-0 top-12 z-50 shadow-spBox-lg bg-spCream rounded-xl size-48"></div>
+        </div>
       </div>
     </header>
   );
 }
 
-export default Heaader;
+export default Header;

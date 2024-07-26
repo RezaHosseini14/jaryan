@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import Heaader from "@/components/global/Heaader";
+import Header from "@/components/global/Header";
 import Sidebar from "@/components/global/Sidebar";
 
 const DashboardLayouts = ({ children }: { children: React.ReactNode }) => {
@@ -14,7 +14,7 @@ const DashboardLayouts = ({ children }: { children: React.ReactNode }) => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.85, ease: "easeInOut" }}
         >
-          <Heaader />
+          <Header />
         </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
