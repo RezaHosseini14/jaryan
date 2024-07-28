@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.glass-box {
+  @apply dark:bg-spGreen/20 dark:backdrop-blur-2xl;
+}
+
 .custom-button {
   @apply p-1 rounded-lg transition cursor-pointer;
 }
@@ -26,28 +30,14 @@
   scale: 1.1;
 }
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  /* background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+body.dark {
+  background-color: #0d0d0b !important;
+  color: #eee;
+  background: radial-gradient(
+    87.68% 101.73% at 51.86% -0.36%,
+    rgba(0, 107, 63, 0.38) 0%,
+    rgba(13, 30, 51, 0) 100%
+  );
 }
 
 a {
@@ -65,10 +55,24 @@ a:focus {
   }
 }
 
-
+body.dark .rs-table-row-header,
+body.dark .rs-table-cell,
+body.dark .day.disabled {
+  /* background-color: var(--spDarkBlue) !important; */
+  color: #fff !important;
+  background-color: rgb(0 107 63 / 0.2) !important;
+  -webkit-backdrop-filter: blur(40px) !important;
+}
+body.dark .day.currentDay{
+  background-color: #ffbd7698 !important;
+  -webkit-backdrop-filter: blur(40px) !important;
+}
 
 :root {
   --spGreen: #006b3f;
+  --spCream: #ffbd76;
+  --spGray: #c5c5c4;
+  --spDarkBlue: #1c232b;
   --rs-table-border-color: #c5c5c4 !important;
   --rs-state-hover-bg: #006b3e0f !important;
 }

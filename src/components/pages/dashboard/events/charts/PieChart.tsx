@@ -9,7 +9,7 @@ const PieChart = () => {
         width: 380,
         type: 'pie',
       },
-      labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+      labels: ['اینستاگرام', 'تلگرام', 'یوتیوب', 'توییتر', 'وبسایت'],
       responsive: [{
         breakpoint: 480,
         options: {

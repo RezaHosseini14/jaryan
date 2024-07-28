@@ -1,16 +1,27 @@
 "use client";
-
 import React, { useState } from "react";
+//@ts-ignore
 import moment from "moment-jalaali";
+import { Moment } from "moment";
 
-import "@/assets/css/calendar.css";
+// components
 import EventForm from "./EventForm";
+
+// css
+import "@/assets/css/calendar.css";
+import { EventsFormType } from "@/models/types/EventForm.Types";
 
 moment.loadPersian({ usePersianDigits: true });
 
+type EventsType = {
+  title: string;
+  color: string;
+  day: Moment;
+};
+
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(moment());
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<EventsType[]>([]);
 
   const startDay = currentDate.clone().startOf("month").startOf("week");
   const endDay = currentDate.clone().endOf("month").endOf("week");
@@ -23,15 +34,15 @@ const Calendar = () => {
     setCurrentDate(currentDate.clone().add(1, "month"));
   };
 
-  const handleAddEvent = (title, color, day) => {
+  const handleAddEvent = (title: string, color: string, day: Moment) => {
     setEvents([...events, { title, color, day }]);
   };
 
-  const handleDeleteEvent = (eventTitle) => {
+  const handleDeleteEvent = (eventTitle: string) => {
     setEvents(events.filter((event) => event.title !== eventTitle));
   };
 
-  const handleDropEvent = (event, day) => {
+  const handleDropEvent = (event: EventsFormType, day: Moment) => {
     setEvents(events.map((e) => (e.title === event.title ? { ...e, day } : e)));
   };
 
@@ -45,9 +56,13 @@ const Calendar = () => {
 
   return (
     <div className="calendar grid grid-cols-12 gap-8 w-full">
-      <EventForm events={events} onAddEvent={handleAddEvent} />
+      <EventForm
+        events={events}
+        onAddEvent={handleAddEvent}
+        handleDeleteEvent={handleDeleteEvent}
+      />
 
-      <div className="col-span-8 border border-spGray rounded-xl p-4">
+      <div className="glass-box col-span-8 border border-spGray rounded-xl p-4">
         <div className="flex items-center justify-between">
           <button className="flex items-center gap-1" onClick={handlePrevMonth}>
             <i className="ki-outline ki-right"></i>
@@ -71,7 +86,7 @@ const Calendar = () => {
             <div
               key={index}
               className={`day ${dayItem.isSame(currentDate, "month") ? "" : "disabled"} ${
-                dayItem.isSame(moment(), "day") ? "bg-blue-100" : ""
+                dayItem.isSame(moment(), "day") ? "currentDay" : ""
               } border p-2`}
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => {
@@ -85,12 +100,6 @@ const Calendar = () => {
                 .map((event, idx) => (
                   <div key={idx} style={{ backgroundColor: event.color }}>
                     {event.title}
-                    <button
-                      onClick={() => handleDeleteEvent(event.title)}
-                      className="text-red-500 ml-2"
-                    >
-                      حذف
-                    </button>
                   </div>
                 ))}
             </div>

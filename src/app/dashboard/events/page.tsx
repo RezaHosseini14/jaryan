@@ -1,7 +1,11 @@
+import React from "react";
+
+// components
 import EventCard from "@/components/pages/dashboard/events/Event.Card";
 import EventsLogs from "@/components/pages/dashboard/events/Events.Logs";
+
+// jsons
 import { events } from "@/json/Events";
-import React from "react";
 
 function EventsPage() {
   const eventsCardMap = events.map((item) => <EventCard id={item.id} title={item.title} image={item.image} date={item.date} population={item.population} />);

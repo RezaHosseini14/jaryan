@@ -1,9 +1,15 @@
 import Image from "next/image";
 import React from "react";
-import eventimage from "@/assets/img/azizam.jpg";
-import { convertToShamsi } from "@/utils/functions";
 import Link from "next/link";
+
+// functions
+import { convertToShamsi } from "@/utils/functions";
+
+// jsons
 import { IEvents } from "@/json/Events";
+
+// images
+import eventimage from "@/assets/img/azizam.jpg";
 
 function EventCard({ id, title, image, date, population }: IEvents) {
   return (

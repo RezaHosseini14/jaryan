@@ -4,9 +4,10 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment-jalaali";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+
+// css
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-// استفاده از تقویم شمسی
 moment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 const localizer = momentLocalizer(moment);
 

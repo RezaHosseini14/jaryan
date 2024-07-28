@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import styleReducer from "./slices/styleSlice";
 

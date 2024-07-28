@@ -1,28 +1,45 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+// components
 import NotchBox from "./NotchBox";
 
+// jsons
 import { sidebarItems } from "@/json/Sidebar.Items";
 
+// images
 import logo from "@/assets/img/logo.svg";
+import userimage from "@/assets/img/user.jpg";
 
+// css
 import "@/assets/css/sidebar.css";
-
-const sidebarItemsMap = sidebarItems.map((item, index: number) => (
-  <Link
-    className="flex items-center gap-3 px-4 py-2 bg-spCream rounded-xl text-lg"
-    href={item.link}
-    key={index}
-  >
-    <i className={`${item.icon} text-spGreen`}></i>
-    <span className="font-bold text-spGreen">{item.title}</span>
-  </Link>
-));
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 function Sidebar() {
+  const { sideBar } = useSelector((state: RootState) => state.style);
+  const [sidebarState, setSidebarState] = useState(sideBar);
+
+  useEffect(() => {
+    const storedSidebarState = localStorage.getItem("sidebar");
+    if (storedSidebarState) {
+      setSidebarState(JSON.parse(storedSidebarState));
+    }
+  }, [sideBar]);
+
+  const sidebarItemsMap = sidebarItems.map((item, index: number) => (
+    <Link
+      className="flex items-center gap-3 px-4 py-2 bg-spCream rounded-xl text-lg"
+      href={item.link}
+      key={index}
+    >
+      <i className={`${item.icon} text-spGreen`}></i>
+      {sidebarState && <span className="font-bold text-spGreen">{item.title}</span>}
+    </Link>
+  ));
   return (
     <motion.div
       className="xl:block hidden"
@@ -30,7 +47,11 @@ function Sidebar() {
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.85, ease: "easeInOut" }}
     >
-      <div className="sidebar xl:sticky fixed xl:top-8 top-8 right-0 w-[18rem] z-50">
+      <div
+        className={`sidebar xl:sticky fixed xl:top-8 top-8 right-0 transition ${
+          sidebarState ? "w-[18rem]" : "w-[5rem]"
+        } z-50`}
+      >
         <div className="relative h-full">
           <motion.div
             initial={{ opacity: 0, y: 100, scale: 0.8 }}
@@ -52,9 +73,33 @@ function Sidebar() {
           </motion.div>
 
           <NotchBox color="green">
-            <div className="p-4 bg-spGreen relative pt-10 h-full">
+            <div className="p-4 bg-spGreen dark:bg-spGreenLight relative pt-10 h-full">
               <div className="sidebar-bg"></div>
-              <div className="flex flex-col gap-4 z-40 relative">{sidebarItemsMap}</div>
+              <div className="flex flex-col h-full">
+                <div className="flex flex-col gap-4 z-40 relative flex-1">{sidebarItemsMap}</div>
+                <div className="flex items-center gap-4 relative px-4 py-2 bg-spCream rounded-xl text-lg">
+                  <div className="size-10 bg-spGreen dark:bg-spGreenLight dark:bg-spDarkBlue rounded-full overflow-hidden">
+                    {/* <i className="ki-outline ki-user text-2xl cursor-pointer"></i> */}
+                    <Image
+                      className="w-full h-full"
+                      src={userimage}
+                      alt="userimage"
+                      objectFit="cover"
+                    />
+                  </div>
+                  {sideBar && (
+                    <div className="flex flex-col items-start text-spGreen flex-1">
+                      <div className="flex items-center justify-between w-full">
+                        <span className="text-base leading-4 font-semibold">admin</span>
+                        <span className="text-xs leading-4 font-bold bg-green-100 text-green-600 rounded-[0.2rem] py-[0.1rem] px-[0.2rem]">
+                          مدیرکل
+                        </span>
+                      </div>
+                      <span className="text-xs">سید محمد رضا حسینی</span>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </NotchBox>
         </div>

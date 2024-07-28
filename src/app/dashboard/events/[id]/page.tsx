@@ -1,16 +1,20 @@
 "use client";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
-import { Modal, Toggle, Button, ButtonToolbar, Placeholder, Table } from "rsuite";
+import { Modal, Button, Table } from "rsuite";
 const { Column, HeaderCell, Cell } = Table;
 
-import { events, IEvents } from "@/json/Events";
+// components
 import SampleCard from "@/components/pages/dashboard/events/Sample.Card";
 import EventCard from "@/components/pages/dashboard/events/Event.Card";
 import PieChart from "@/components/pages/dashboard/events/charts/PieChart";
 import BarChart from "@/components/pages/dashboard/events/charts/BarChart ";
-import { Swiper, SwiperSlide } from "swiper/react";
 
+// jsons
+import { events, IEvents } from "@/json/Events";
+
+// images
 import eventimage from "@/assets/img/azizam.jpg";
 import userimage from "@/assets/img/user.jpg";
 
@@ -49,12 +53,12 @@ export default function EventPage({ params }: { params: { id: any } }) {
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    events?.find((item: any) => {
-      if (item.id == params.id) {
-        setEvent(item);
-      }
-    });
-  }, []);
+    const foundEvent = events.find((item: any) => item.id === params.id);
+
+    if (foundEvent && foundEvent !== event) {
+      setEvent(foundEvent);
+    }
+  }, [params.id]); // فقط از params.id استفاده کنید و event را حذف کنید
 
   const guestData = [
     {
@@ -127,6 +131,49 @@ export default function EventPage({ params }: { params: { id: any } }) {
           </div>
         </SampleCard>
       </div>
+      <Modal open={open} onClose={handleClose}>
+        <Modal.Header>
+          <Modal.Title>حامد سلطانی</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="flex flex-col gap-4 items-center">
+            <div className="size-24 overflow-hidden rounded-full">
+              <Image className="w-full h-full" src={userimage} alt="eventImage" objectFit="cover" />
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-lg">حامد سلطانی</span>
+              <span className="text-lg">متولد ۱۳۶۶</span>
+              <span className="text-lg">ساکن تهران</span>
+            </div>
+
+            <div className="sp_border"></div>
+
+            <div className="">
+              <Table className="rounded-xl w-full" width={400} data={guestData}>
+                <Column width={80} align="center" fixed>
+                  <HeaderCell>شناسه</HeaderCell>
+                  <Cell dataKey="id" />
+                </Column>
+
+                <Column width={250} align="center">
+                  <HeaderCell>موضوع</HeaderCell>
+                  <Cell dataKey="topic" />
+                </Column>
+
+                <Column width={200} align="center">
+                  <HeaderCell>تاریخ</HeaderCell>
+                  <Cell dataKey="date" />
+                </Column>
+              </Table>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={handleClose} appearance="subtle">
+            بستن
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

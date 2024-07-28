@@ -1,35 +1,59 @@
 "use client";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import React, { useState } from "react";
+import { AnyAction } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+import { SIDEBAR_OPEN } from "@/redux/slices/styleSlice";
+import { RootState } from "@/redux/store";
+import { ThemeEnum } from "@/models/enums/Theme.enum";
 
-function Header() {
-  const [theme, setTheme] = useState<boolean>(false);
-  const changeThemeHandler = () => {
-    setTheme(!theme);
+const Header = () => {
+  const dispatch = useDispatch();
+  const { sideBar } = useSelector((state: RootState) => state.style);
+  const [theme, setTheme] = useState<ThemeEnum>(() => {
+    const storedTheme = localStorage.getItem("theme");
+    return storedTheme ? (storedTheme as ThemeEnum) : ThemeEnum.Light;
+  });
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
+
+  const toggleTheme = () => {
+    const newTheme = theme === ThemeEnum.Light ? ThemeEnum.Dark : ThemeEnum.Light;
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
+  const handleToggleSideBar = () => {
+    const newSidebarState = !sideBar;
+    dispatch(SIDEBAR_OPEN(newSidebarState));
+    localStorage.setItem("sidebar", JSON.stringify(newSidebarState));
   };
 
   return (
-    <header className="flex items-center justify-between px-4 w-full h-14 rounded-xl bg-spGreen text-white">
+    <header className="flex items-center justify-between px-4 w-full h-14 rounded-xl bg-spGreen dark:bg-spGreen/45 dark:backdrop-blur-2xl text-white">
       <div className="flex items-center gap-4">
-        <i className="ki-outline ki-burger-menu-5 text-2xl"></i>
+        <i
+          onClick={handleToggleSideBar}
+          className="ki-outline ki-burger-menu-5 text-2xl cursor-pointer"
+        ></i>
         <h1 className="text-lg font-bold">مرکز رویداد رسانه جریان</h1>
       </div>
       <div className="flex items-center gap-4">
         <i
-          onClick={changeThemeHandler}
-          className={`ki-outline ki-${theme ? "moon" : "sun"} text-2xl cursor-pointer`}
+          onClick={toggleTheme}
+          className={`ki-outline ki-${
+            theme === ThemeEnum.Light ? "moon" : "sun"
+          } text-2xl cursor-pointer`}
         ></i>
         <Link href="/dashboard">
           <i className="ki-outline ki-home-2 text-2xl"></i>
         </Link>
-
-        <div className="group relative">
-          <i className="ki-outline ki-user text-2xl cursor-pointer"></i>
-          <div className="group-hover:opacity-100 group-hover:visible opacity-0 invisible transition-all absolute left-0 top-12 z-50 shadow-spBox-lg bg-spCream rounded-xl size-48"></div>
-        </div>
+        <i className="ki-outline ki-exit-left text-2xl"></i>
       </div>
     </header>
   );
-}
+};
 
 export default Header;

@@ -6,6 +6,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       backgroundImage: {
@@ -14,8 +15,10 @@ const config: Config = {
       },
       colors: {
         spGreen: "#006b3f",
+        spGreenLight: "#05472b",
         spCream: "#ffbd76",
         spGray: "#c5c5c4",
+        spDarkBlue: "var(--spDarkBlue)",
       },
       boxShadow: {
         spBox: "0px 2px 4px rgba(0, 107, 63, 0.2)", // سایه نرم با رنگ spGreen
@@ -23,7 +26,7 @@ const config: Config = {
       },
       screens: {
         "3xl": "1600px",
-        "xs": "500px",
+        xs: "500px",
       },
     },
   },

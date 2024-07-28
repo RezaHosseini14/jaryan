@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Button } from "rsuite";
 
-import "@/assets/css/iranmap.css";
+// components
+import ProvinceModal from "./events/Province.Modal";
 
+// jsons
 import { provinces } from "@/json/Provinces";
 import { islands } from "@/json/Islands";
-import ProvinceModal from "./events/Province.Modal";
+
+// css
+import "@/assets/css/iranmap.css";
 
 function Map() {
   const [open, setOpen] = useState<boolean>(false);

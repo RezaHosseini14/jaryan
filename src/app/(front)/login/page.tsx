@@ -5,13 +5,20 @@ import { useRouter } from "next/navigation";
 import { Form } from "rsuite";
 import { motion } from "framer-motion";
 
+// components
+import NotchBox from "@/components/global/NotchBox";
+
+// models
 import { model } from "@/models/Login.Model";
 
+// jsons
+import { users } from "@/json/Users";
+
+// images
 import logo from "@/assets/img/logo.svg";
 
+// css
 import "@/assets/css/login.css";
-import { users } from "@/json/Users";
-import NotchBox from "@/components/global/NotchBox";
 
 type FieldType = {
   username: string;
