@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { AnyAction } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import { SIDEBAR_OPEN } from "@/redux/slices/styleSlice";
+import { CHANGE_THEME, SIDEBAR_OPEN } from "@/redux/slices/styleSlice";
 import { RootState } from "@/redux/store";
 import { ThemeEnum } from "@/models/enums/Theme.enum";
 
@@ -22,6 +22,7 @@ const Header = () => {
   const toggleTheme = () => {
     const newTheme = theme === ThemeEnum.Light ? ThemeEnum.Dark : ThemeEnum.Light;
     setTheme(newTheme);
+    dispatch(CHANGE_THEME(newTheme));
     localStorage.setItem("theme", newTheme);
   };
 

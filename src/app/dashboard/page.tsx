@@ -11,7 +11,7 @@ function Dashboard() {
       <UpcomingEvents />
       <CarriedoutEvents />
       <Calendar />
-      {/* <Map /> */}
+      <Map />
       {/* <MyCalendar /> */}
     </div>
   );

@@ -68,6 +68,8 @@ body.dark .day.currentDay{
   -webkit-backdrop-filter: blur(40px) !important;
 }
 
+
+
 :root {
   --spGreen: #006b3f;
   --spCream: #ffbd76;
