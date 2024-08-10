@@ -58,7 +58,7 @@ export default function EventPage({ params }: { params: { id: any } }) {
     if (foundEvent && foundEvent !== event) {
       setEvent(foundEvent);
     }
-  }, [params.id]); // فقط از params.id استفاده کنید و event را حذف کنید
+  }, [params.id]);
 
   const guestData = [
     {

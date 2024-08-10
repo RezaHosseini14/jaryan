@@ -1,129 +1,51 @@
 import React, { useEffect, useState } from "react";
 
-// components
 import ProvinceModal from "./events/Province.Modal";
 
-// jsons
-import { provinces } from "@/json/Provinces";
-import { islands } from "@/json/Islands";
-
-// css
 import "@/assets/css/iranmap.css";
-import { iranSvgIsland, IranSvgProvince, iranSvgSea } from "@/json/IranSvg";
+import { mapData } from "@/json/mapData";
+import IranMap from "./sample/IranMap";
 
 function Map() {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [width, setWidth] = useState<number>(window.innerWidth);
 
   useEffect(() => {
-    const provincePaths = document.querySelectorAll(".province path");
-
-    const handleClick = (event: Event) => {
-      const path = event.target as SVGPathElement;
-      const provinceName: string = path.classList.value;
-      const provincePersianName = provinces.find((item) => item.id === provinceName);
-
-      if (provincePersianName) {
-        setSelectedProvince(provincePersianName.name);
-        handleOpen();
-      } else {
-        console.error("Province not found:", provinceName);
-      }
+    const handleResize = () => {
+      setWidth(window.innerWidth);
     };
+    addEventListener("resize", handleResize);
 
-    provincePaths.forEach((path) => {
-      path.addEventListener("click", handleClick);
-    });
-
-    // Cleanup event listeners
     return () => {
-      provincePaths.forEach((path) => {
-        path.removeEventListener("click", handleClick);
-      });
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
+  const handleOpen = (): void => setOpen(true);
+  const handleClose = (): void => setOpen(false);
+
+  const selectProvinceHandler = (province: { faName: string; name: string }) => {
+    setSelectedProvince(province.faName);
+    handleOpen();
+  };
+
   return (
-    <div id="IranMap" className="grid grid-cols-12 gap-8">
-      <div className="xl:col-span-6 lg:col-span-12 xl:order-1 order-2">
-        <span className="text-xl font-bold">استانها</span>
-        <ul className="grid grid-cols-4 border border-spGray rounded-xl">
-          {provinces.map((province) => (
-            <li
-              key={province.id}
-              className="text-sm p-2 cursor-pointer hover:bg-spCream hover:text-spGreen"
-            >
-              <a href={`#${province.id}`}>{province.name}</a>
-            </li>
-          ))}
-        </ul>
-
-        <span className="text-xl font-bold">جزایر</span>
-        <ul className="grid grid-cols-4 border border-spGray rounded-xl">
-          {islands.map((island) => (
-            <li
-              key={island.id}
-              className="text-sm p-2 cursor-pointer hover:bg-spCream hover:text-spGreen"
-            >
-              <a href={`#${island.id}`}>{island.name}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="map xl:col-span-6 lg:col-span-12 xl:order-2 order-1 mx-auto">
-        <svg
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          x="0"
-          y="0"
-          viewBox="20 0 970 960"
-          enableBackground="new 20 0 970 960"
-          xmlSpace="preserve"
-        >
-          <g className="province">
-            {IranSvgProvince.map((item) => (
-              <path className={item.id} d={item.d} fill="#999" />
-            ))}
-          </g>
-          <g className="sea">
-            {iranSvgSea.map((item) => (
-              <path className={item.id} d={item.d} />
-            ))}
-          </g>
-          <g className="lake">
-            <path
-              className="jazmourian"
-              d=" M 735.39 728.39 C 739.32 725.48 744.50 726.12 749.09 726.06 C 748.87 730.23 748.85 734.76 746.25 738.27 C 744.31 740.90 742.24 743.89 739.07 745.09 C 735.82 743.00 735.87 738.59 734.78 735.26 C 734.53 733.01 733.02 729.97 735.39 728.39 Z"
-            />
-            <path
-              className="qom"
-              d=" M 392.53 316.41 C 396.15 319.51 400.05 322.33 403.25 325.88 C 405.56 328.37 405.60 331.94 406.17 335.09 C 399.76 335.20 393.56 333.51 387.51 331.56 C 390.12 326.86 392.05 321.79 392.53 316.41 Z"
-            />
-            <path
-              className="urmia"
-              d=" M 70.94 100.38 C 76.66 94.04 88.01 97.27 90.48 105.14 C 89.12 111.83 86.35 118.54 87.47 125.50 C 88.30 127.83 90.56 129.30 92.62 130.47 C 95.27 131.90 98.30 130.53 101.12 130.96 C 104.02 131.89 105.83 134.55 107.85 136.66 C 105.87 138.36 103.19 140.92 105.12 143.69 C 109.33 148.80 115.47 152.40 118.27 158.65 C 118.78 159.50 118.71 160.29 118.05 161.03 C 115.60 163.09 112.39 164.01 109.96 166.10 C 109.61 169.05 109.90 172.04 109.99 175.00 C 107.00 174.40 103.25 174.51 101.33 171.69 C 96.74 164.74 92.82 157.11 86.45 151.56 C 83.31 148.97 83.19 144.67 81.91 141.10 C 80.21 136.23 78.11 131.51 76.67 126.55 C 75.23 125.31 73.66 124.19 72.49 122.68 C 71.82 120.64 71.96 118.40 72.41 116.33 C 73.48 112.43 78.57 111.08 79.29 107.06 C 79.94 102.30 74.03 101.97 70.94 100.38 Z"
-            />
-          </g>
-          <g className="island">
-            {iranSvgIsland.map((item) => (
-              <path className={item.id} d={item.d} />
-            ))}
-          </g>
-        </svg>
-      </div>
-
-      <ProvinceModal
-        open={open}
-        handleClose={handleClose}
-        handleOpen={handleOpen}
-        selectedProvince={selectedProvince}
+    <>
+      <IranMap
+        colorRange="0, 107, 63"
+        textColor="#000"
+        defaultSelectedProvince="tehran"
+        deactiveProvinceColor="#eee"
+        selectedProvinceColor="#3bcc6d"
+        width={width > 1000 ? width / 2 : width - 100}
+        data={mapData}
+        tooltipTitle="رویدادها"
+        selectProvinceHandler={selectProvinceHandler}
       />
-    </div>
+      <ProvinceModal open={open} handleClose={handleClose} selectedProvince={selectedProvince} />
+    </>
   );
 }
 

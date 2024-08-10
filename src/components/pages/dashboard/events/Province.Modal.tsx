@@ -5,8 +5,7 @@ const { Column, HeaderCell, Cell } = Table;
 interface IProvinceModalProps {
   selectedProvince: string | null;
   open: boolean;
-  handleClose: () => void;
-  handleOpen: () => void;
+  handleClose: () => any;
 }
 
 const data = [
@@ -40,23 +39,14 @@ const data = [
   },
 ];
 
-function ProvinceModal({ selectedProvince, open, handleClose, handleOpen }: IProvinceModalProps) {
+function ProvinceModal({ selectedProvince, open, handleClose }: IProvinceModalProps) {
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal size="md" open={open} onClose={handleClose}>
       <Modal.Header>
         <Modal.Title>{selectedProvince}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Table
-          id="events-table"
-          className="rounded-xl"
-          height={400}
-          hover={true}
-          autoHeight={true}
-          bordered={true}
-          cellBordered={true}
-          data={data}
-        >
+        <Table className="rounded-xl" data={data}>
           <Column width={80} align="center" fixed>
             <HeaderCell>شناسه</HeaderCell>
             <Cell dataKey="id" />
@@ -67,12 +57,12 @@ function ProvinceModal({ selectedProvince, open, handleClose, handleOpen }: IPro
             <Cell dataKey="eventName" />
           </Column>
 
-          <Column width={250} align="center">
+          <Column width={100} align="center">
             <HeaderCell>موضوع</HeaderCell>
             <Cell dataKey="topic" />
           </Column>
 
-          <Column width={200} align="center">
+          <Column width={100} align="center">
             <HeaderCell>تاریخ</HeaderCell>
             <Cell dataKey="date" />
           </Column>
