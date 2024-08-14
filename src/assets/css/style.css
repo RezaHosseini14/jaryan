@@ -5,8 +5,15 @@
   border: unset !important;
 }
 
+.sp_border_right {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), var(--spGreen), var(--spGreen));
+  height: 2px;
+  width: 100%;
+  border: unset !important;
+}
+
 .layout-container {
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 @media (min-width: 768px) {

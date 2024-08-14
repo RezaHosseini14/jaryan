@@ -5,6 +5,7 @@ import React, { useState } from "react";
 // images
 import notchCream from "@/assets/img/notchCream.svg";
 import notchGreen from "@/assets/img/notchGreen.svg";
+import notchWhite from "@/assets/img/notchWhite.svg";
 import notchGreenLight from "@/assets/img/notchGreenLight.svg";
 import { ThemeEnum } from "@/models/enums/Theme.enum";
 import { useSelector } from "react-redux";
@@ -13,17 +14,13 @@ import { RootState } from "@/redux/store";
 enum NotchColors {
   Green = "green",
   Cream = "cream",
+  White = "white",
 }
 
 function NotchBox({
   children,
   color,
 }: Readonly<{ children: React.ReactNode; color: NotchColors }>) {
-  // const [theme, setTheme] = useState<ThemeEnum>(() => {
-  //   const storedTheme = localStorage.getItem("theme");
-  //   return storedTheme ? (storedTheme as ThemeEnum) : ThemeEnum.Light;
-  // });
-
   const { theme } = useSelector((state: RootState) => state.style);
 
   return (
@@ -31,11 +28,23 @@ function NotchBox({
       <div className="flex items-center logo-container w-full -mb-[1px] z-40">
         <div
           className={`${
-            color == "cream" ? "bg-spCream" : "bg-spGreen dark:bg-spGreenLight"
+            color === "cream"
+              ? "bg-spCream"
+              : color === "white"
+                ? "bg-white"
+                : "bg-spGreen dark:bg-spGreenLight"
           } h-[2.4rem] flex-1 -ml-[1px] dark:bg-spDarkBlue`}
         ></div>
         <Image
-          src={color == "cream" ? notchCream : theme === "dark" ? notchGreenLight : notchGreen}
+          src={
+            color === "cream"
+              ? notchCream
+              : color === "white"
+                ? notchWhite // فرض کنید notchWhite برای رنگ سفید استفاده می‌شود
+                : theme === "dark"
+                  ? notchGreenLight
+                  : notchGreen
+          }
           alt="notch"
           width={150}
           height={150}
@@ -44,8 +53,12 @@ function NotchBox({
         />
         <div
           className={`${
-            color == "cream" ? "bg-spCream" : "bg-spGreen dark:bg-spGreenLight"
-          } h-[2.4rem] flex-1`}
+            color === "cream"
+              ? "bg-spCream"
+              : color === "white"
+                ? "bg-white"
+                : "bg-spGreen dark:bg-spGreenLight"
+          } h-[2.4rem] flex-1 -ml-[1px] dark:bg-spDarkBlue`}
         ></div>
       </div>
       {children}

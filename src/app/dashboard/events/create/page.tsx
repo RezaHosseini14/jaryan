@@ -9,6 +9,7 @@ import SelectField from "@/components/global/fields/SelectField";
 import DateField from "@/components/global/fields/DateField";
 import TexAreaField from "@/components/global/fields/TexAreaField";
 import UploadField from "@/components/global/fields/UploadField";
+import { PerosnsData, PerosnsDataType } from "@/json/PersonsData";
 
 type EventCreateType = {
   title: string;
@@ -29,6 +30,11 @@ type EventCreateType = {
 const selectData = provinces.map((province) => ({
   label: province.name,
   value: province.id,
+}));
+
+const PerosnsDataList = PerosnsData.map((person: PerosnsDataType) => ({
+  label: person.firstName + " " + person.lastName,
+  value: person.lastName,
 }));
 
 const handleSelectIranianCities = (selctedProvince: string) => {
@@ -97,7 +103,7 @@ function EventCreatepage() {
           <TextField title="هزینه برآوردشده (ریال)" name="estimatedcost" type="number" />
           <TextField title="هزینه تمام شده (ریال)" name="totalcost" type="number" />
           <TextField title="مخاطب" name="audience" />
-          <SelectField title="میهمانان" name="guests" data={selectData} />
+          <SelectField title="میهمانان" name="guests" data={PerosnsDataList} />
           <TextField title="ارگان ها" name="organs" />
           <TextField title="جمعیت" name="population" type="number" />
           <TexAreaField title="خلاصه فعالیت" name="description" rows={5} />

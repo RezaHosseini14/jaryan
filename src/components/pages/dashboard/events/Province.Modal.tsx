@@ -1,5 +1,5 @@
-import React from "react";
-import { Table, Modal, Button } from "rsuite";
+import React, { useState, useEffect } from "react";
+import { Table, Modal, Button, Loader } from "rsuite";
 const { Column, HeaderCell, Cell } = Table;
 
 interface IProvinceModalProps {
@@ -40,36 +40,54 @@ const data = [
 ];
 
 function ProvinceModal({ selectedProvince, open, handleClose }: IProvinceModalProps) {
+  const [dynamic, setDynamic] = useState(true);
+
+  useEffect(() => {
+    if (open) {
+      setDynamic(true);
+      const timer = setTimeout(() => setDynamic(false), 2000);
+      return () => clearTimeout(timer); // پاک کردن تایمر هنگام بستن مودال
+    }
+  }, [open]);
+
   return (
-    <Modal size="md" open={open} onClose={handleClose}>
+    <Modal overflow={true} size="md" open={open} onClose={handleClose}>
       <Modal.Header>
-        <Modal.Title>{selectedProvince}</Modal.Title>
+        <Modal.Title>
+          <h2 className="font-bold text-xl">{selectedProvince}</h2>
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Table className="rounded-xl" data={data}>
-          <Column width={80} align="center" fixed>
-            <HeaderCell>شناسه</HeaderCell>
-            <Cell dataKey="id" />
-          </Column>
+        {dynamic ? (
+          <div style={{ textAlign: "center" }}>
+            <Loader size="md" />
+          </div>
+        ) : (
+          <Table className="rounded-xl text-lg" data={data}>
+            <Column width={80} align="center" fixed>
+              <HeaderCell>شناسه</HeaderCell>
+              <Cell dataKey="id" />
+            </Column>
 
-          <Column flexGrow={1} align="center">
-            <HeaderCell>نام رویداد</HeaderCell>
-            <Cell dataKey="eventName" />
-          </Column>
+            <Column flexGrow={1} align="center">
+              <HeaderCell>نام رویداد</HeaderCell>
+              <Cell dataKey="eventName" />
+            </Column>
 
-          <Column width={100} align="center">
-            <HeaderCell>موضوع</HeaderCell>
-            <Cell dataKey="topic" />
-          </Column>
+            <Column flexGrow={1} align="center">
+              <HeaderCell>موضوع</HeaderCell>
+              <Cell dataKey="topic" />
+            </Column>
 
-          <Column width={100} align="center">
-            <HeaderCell>تاریخ</HeaderCell>
-            <Cell dataKey="date" />
-          </Column>
-        </Table>
+            <Column width={150} align="center">
+              <HeaderCell>تاریخ</HeaderCell>
+              <Cell dataKey="date" />
+            </Column>
+          </Table>
+        )}
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleClose} appearance="subtle">
+        <Button color="red" onClick={handleClose} appearance="primary">
           بستن
         </Button>
       </Modal.Footer>

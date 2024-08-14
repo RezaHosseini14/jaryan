@@ -14,7 +14,7 @@ const IranMapWrapper: React.FC<MapProps> = ({
   tooltipTitle,
 }) => {
   const badge = `
-    <div class="react-map-badge w-96">
+    <div class="react-map-badge w-40">
       <h2>${provinceName}</h2>
       <h3 >
         ${

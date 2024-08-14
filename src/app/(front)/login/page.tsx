@@ -15,7 +15,7 @@ import { model } from "@/models/Login.Model";
 import { users } from "@/json/Users";
 
 // images
-import logo from "@/assets/img/logo.svg";
+import logo from "@/assets/img/logowhite.svg";
 
 // css
 import "@/assets/css/login.css";
@@ -74,8 +74,8 @@ function LoginPage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
         >
-          <NotchBox color="cream">
-            <div className="login-box bg-spCream w-[22rem] h-80 px-4 pb-4 text-spGreen relative">
+          <NotchBox color="white">
+            <div className="login-box bg-white w-[22rem] h-80 px-4 pb-4 text-spGreen relative">
               <Form
                 ref={formRef}
                 fluid
@@ -116,7 +116,7 @@ function LoginPage() {
                 </div>
                 <motion.div {...fadeInUp} transition={{ ...fadeInUp.transition, delay: 0.5 }}>
                   <button
-                    className="bg-spGreen hover:bg-spGreen/70 transition w-full h-10 rounded-xl text-spCream font-bold text-xl"
+                    className="bg-spGreen hover:bg-spGreen/70 transition w-full h-10 rounded-xl text-white font-bold text-xl"
                     onClick={handleSubmit}
                   >
                     ورود
