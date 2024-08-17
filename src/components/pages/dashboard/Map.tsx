@@ -41,7 +41,7 @@ function Map() {
         selectedProvinceColor="#3bcc6d"
         width={width > 1000 ? width / 2 : width - 100}
         data={mapData}
-        tooltipTitle="رویدادها برگذار شده"
+        tooltipTitle="رویدادها برگزار شده"
         selectProvinceHandler={selectProvinceHandler}
       />
       <ProvinceModal open={open} handleClose={handleClose} selectedProvince={selectedProvince} />

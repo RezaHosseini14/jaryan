@@ -6,17 +6,22 @@ import Link from "next/link";
 import { convertToShamsi } from "@/utils/functions";
 
 // jsons
-import { IEvents } from "@/json/Events";
+import { IEvent } from "@/json/mainData";
 
 // images
 import eventimage from "@/assets/img/azizam.jpg";
 
-function EventCard({ id, title, image, date, population }: IEvents) {
+function EventCard({ id, title, image, createTime, population }: any) {
   return (
     <Link href={`/dashboard/events/${id}`}>
       <div className="card-box">
         <div className="aspect-video rounded-lg overflow-hidden">
-          <Image className="card-box-image w-full h-full" src={eventimage} alt="eventImage" objectFit="cover" />
+          <Image
+            className="card-box-image w-full h-full"
+            src={eventimage}
+            alt="eventImage"
+            objectFit="cover"
+          />
         </div>
         <div className="text-spGreen flex flex-col items-center">
           <h1 className="text-xl text-center font-extrabold w-full truncate">{title}</h1>
@@ -25,7 +30,7 @@ function EventCard({ id, title, image, date, population }: IEvents) {
             <div className="flex items-center justify-between gap-1 text-lg">
               <div className="flex items-center gap-1">
                 <i className="ki-solid ki-user"></i>
-                <span className="font-extrabold">مدیر برگذاری :</span>
+                <span className="font-extrabold">مدیر برگزاری :</span>
               </div>
               <span className="font-bold">حامد سلطانی</span>
             </div>
@@ -35,7 +40,8 @@ function EventCard({ id, title, image, date, population }: IEvents) {
                 <i className="ki-solid ki-calendar"></i>
                 <span className="font-extrabold">تاریخ :</span>
               </div>
-              <span className="font-bold">{convertToShamsi(date)}</span>
+              <span className="font-bold">{createTime}</span>
+              {/* <span className="font-bold">{convertToShamsi(date)}</span> */}
             </div>
 
             <div className="flex items-center justify-between gap-1 text-lg">

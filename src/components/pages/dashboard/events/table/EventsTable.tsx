@@ -1,5 +1,6 @@
 "use client";
 import useCopyTableToClipboard from "@/hooks/useCopyTableToClipboard ";
+import { mainData } from "@/json/mainData";
 import Link from "next/link";
 import printJS from "print-js";
 import React, { useState } from "react";
@@ -88,9 +89,9 @@ function CarriedoutEvents() {
     setSortType(sortType);
   };
 
-  const getData = () => {
+  const sortedData = () => {
     if (sortColumn && sortType) {
-      return data.sort((a, b) => {
+      return [...mainData].sort((a, b) => {
         const x = a[sortColumn];
         const y = b[sortColumn];
         if (sortColumn === "date") {
@@ -102,9 +103,8 @@ function CarriedoutEvents() {
         }
       });
     }
-    return data;
+    return mainData;
   };
-
   const handlePrint = () => {
     printJS({
       printable: data,
@@ -150,7 +150,7 @@ function CarriedoutEvents() {
         autoHeight={true}
         bordered={true}
         cellBordered={true}
-        data={getData()}
+        data={sortedData()}
         sortColumn={sortColumn}
         sortType={sortType}
         onSortColumn={handleSortColumn}
@@ -162,22 +162,22 @@ function CarriedoutEvents() {
 
         <Column flexGrow={1} align="center" sortable>
           <HeaderCell>نام رویداد</HeaderCell>
-          <Cell dataKey="eventName" />
+          <Cell dataKey="title" />
         </Column>
 
-        <Column width={200} align="center" sortable>
-          <HeaderCell>محل برگذاری</HeaderCell>
-          <Cell dataKey="location" />
+        <Column flexGrow={1} align="center" sortable>
+          <HeaderCell>محل برگزاری</HeaderCell>
+          <Cell dataKey="placement" />
         </Column>
 
-        <Column width={250} align="center" sortable>
+        <Column flexGrow={1} align="center" sortable>
           <HeaderCell>موضوع</HeaderCell>
           <Cell dataKey="topic" />
         </Column>
 
-        <Column width={200} align="center" sortable>
+        <Column width={100} align="center" sortable>
           <HeaderCell>تاریخ</HeaderCell>
-          <Cell dataKey="date" />
+          <Cell dataKey="createTime" />
         </Column>
         <Column width={70} align="center">
           <HeaderCell> </HeaderCell>

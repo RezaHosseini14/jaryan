@@ -9,10 +9,6 @@ type UploadFieldType = {
 function UploadField({ title, name, handleImageChange }: UploadFieldType) {
   return (
     <Form.Group className="xl:col-span-4 lg:col-span-3 xs:col-span-2 col-span-1">
-      <Form.ControlLabel className="font-semibold text-base text-spGreen">
-        تصاویر رویداد
-      </Form.ControlLabel>
-
       <Uploader
         autoUpload={false}
         onChange={handleImageChange}

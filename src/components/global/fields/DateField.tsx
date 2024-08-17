@@ -14,12 +14,6 @@ function DateField({ title, name }: DateFieldType) {
       <Form.ControlLabel className="font-semibold text-base text-spGreen">
         {title}
       </Form.ControlLabel>
-      {/* <Form.Control
-        className={`h-10 text-lg border border-spGreen w-full ${className && className}`}
-        name={name}
-        type={type}
-      /> */}
-
       <DatePicker
         containerClassName="w-full"
         inputClass="w-full px-2 h-10 text-lg border border-spGreen rounded-md"

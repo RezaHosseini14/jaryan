@@ -94,7 +94,6 @@ const PersianDatePicker = () => {
 
   const renderCalendar = () => {
     const [gy, gm] = gregorianToJalali(currentYear, currentMonth, 1);
-    console.log(gy);
     
     const daysInMonth = new Date(gy, gm, 0).getDate();
     const firstDayOfWeek = new Date(gy, gm - 1, 1).getDay();

@@ -5,19 +5,18 @@ import EventCard from "@/components/pages/dashboard/events/Event.Card";
 import EventsLogs from "@/components/pages/dashboard/events/Events.Logs";
 
 // jsons
-import { events } from "@/json/Events";
-import CarriedoutEvents from "@/components/pages/dashboard/tables/CarriedoutEvents";
 import { useState } from "react";
 import EventsTable from "@/components/pages/dashboard/events/table/EventsTable";
+import { mainData } from "@/json/mainData";
 
 function EventsPage() {
   const [mode, setMode] = useState<boolean>(true);
-  const eventsCardMap = events.map((item) => (
+  const eventsCardMap = mainData.map((item) => (
     <EventCard
       id={item.id}
       title={item.title}
       image={item.image}
-      date={item.date}
+      date={item.createTime}
       population={item.population}
     />
   ));

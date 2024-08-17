@@ -35,21 +35,21 @@ function Sidebar() {
       {item.sub?.length > 0 && <div className="w-[2px] h-full rounded-sm bg-white"></div>}
       <div className="flex flex-col gap-2 w-full">
         <Link
-          className="flex items-center gap-3 px-4 py-2 bg-white/80 backdrop-blur-xl rounded-xl text-lg"
+          className="flex items-center gap-3 px-4 py-2 bg-white/80 dark:bg-white/30 backdrop-blur-xl rounded-xl text-lg"
           href={item.link}
         >
-          <i className={`${item.icon} text-spGreen`}></i>
-          {sidebarState && <span className="font-bold text-spGreen">{item.title}</span>}
+          <i className={`${item.icon} text-spGreen dark:text-white`}></i>
+          {sidebarState && <span className="font-bold text-spGreen dark:text-white">{item.title}</span>}
         </Link>
         {item.sub?.length > 0 &&
           item.sub?.map((subItem, subItemIndex) => (
             <div key={subItemIndex}>
               <Link
-                className="flex items-center gap-3 px-4 py-2 bg-white/80 backdrop-blur-xl rounded-xl text-lg"
+                className="flex items-center gap-3 px-4 py-2 bg-white/80 dark:bg-white/30 backdrop-blur-xl rounded-xl text-lg"
                 href={subItem.link}
               >
-                <i className={`${subItem.icon} text-spGreen`}></i>
-                {sidebarState && <span className="font-bold text-spGreen">{subItem.title}</span>}
+                <i className={`${subItem.icon} text-spGreen dark:text-white`}></i>
+                {sidebarState && <span className="font-bold text-spGreen dark:text-white">{subItem.title}</span>}
               </Link>
             </div>
           ))}
@@ -93,9 +93,8 @@ function Sidebar() {
               <div className="sidebar-bg"></div>
               <div className="flex flex-col h-full">
                 <div className="flex flex-col gap-4 z-40 relative flex-1">{sidebarItemsMap}</div>
-                <div className="flex items-center gap-4 relative px-4 py-2 bg-white/80 backdrop-blur-xl rounded-xl text-lg">
+                <div className="flex items-center gap-4 relative px-4 py-2 bg-white/80 dark:bg-white/30 backdrop-blur-xl rounded-xl text-lg">
                   <div className="size-10 bg-spGreen dark:bg-spGreenLight dark:bg-spDarkBlue rounded-full overflow-hidden">
-                    {/* <i className="ki-outline ki-user text-2xl cursor-pointer"></i> */}
                     <Image
                       className="w-full h-full"
                       src={userimage}
@@ -104,7 +103,7 @@ function Sidebar() {
                     />
                   </div>
                   {sideBar && (
-                    <div className="flex flex-col items-start text-spGreen flex-1">
+                    <div className="flex flex-col items-start text-spGreen dark:text-white flex-1">
                       <div className="flex items-center justify-between w-full">
                         <span className="text-base leading-4 font-semibold">admin</span>
                         <span className="text-xs leading-4 font-bold bg-green-100 text-green-600 rounded-[0.2rem] py-[0.1rem] px-[0.2rem]">

@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
-import { Form, Uploader } from "rsuite";
+import { Form, TagPicker, Uploader } from "rsuite";
 import { EventCreateModel } from "@/models/EventCreate.Model";
 import { provinces } from "@/json/Provinces";
 import { iranianCity } from "@/json/IranianCity";
@@ -9,7 +9,8 @@ import SelectField from "@/components/global/fields/SelectField";
 import DateField from "@/components/global/fields/DateField";
 import TexAreaField from "@/components/global/fields/TexAreaField";
 import UploadField from "@/components/global/fields/UploadField";
-import { PerosnsData, PerosnsDataType } from "@/json/PersonsData";
+import { GuestsData, GuestsDataType } from "@/json/GuestsData";
+import TagField from "@/components/global/fields/TagField";
 
 type EventCreateType = {
   title: string;
@@ -32,7 +33,7 @@ const selectData = provinces.map((province) => ({
   value: province.id,
 }));
 
-const PerosnsDataList = PerosnsData.map((person: PerosnsDataType) => ({
+const PerosnsDataList = GuestsData.map((person: GuestsDataType) => ({
   label: person.firstName + " " + person.lastName,
   value: person.lastName,
 }));
@@ -78,6 +79,16 @@ function EventCreatepage() {
     }));
   };
 
+  const organsData = [
+    { label: "شهرداری", value: "شهرداری" },
+    { label: "سازمان تبلیغات اسلامی", value: "سازمان تبلیغات اسلامی" },
+    { label: "شورای هماهنگی تبلیغات اسلامی", value: "شورای هماهنگی تبلیغات اسلامی" },
+    { label: "سپاه پاسداران", value: "سپاه پاسداران" },
+    { label: "وزارت ارشاد", value: "وزارت ارشاد" },
+    { label: "وزارت ورزش و جوانان", value: "وزارت ورزش و جوانان" },
+    { label: "استانداری", value: "استانداری" },
+  ];
+
   return (
     <div>
       <Form
@@ -98,13 +109,14 @@ function EventCreatepage() {
             data={handleSelectIranianCities(formValue.province)}
             disabled={!formValue.province}
           />
-          <TextField title="محل برگذاری" name="placement" />
-          <DateField title="تاریخ برگذاری" name="eventDate" />
+          <TextField title="محل برگزاری" name="placement" />
+          <DateField title="تاریخ برگزاری" name="eventDate" />
           <TextField title="هزینه برآوردشده (ریال)" name="estimatedcost" type="number" />
-          <TextField title="هزینه تمام شده (ریال)" name="totalcost" type="number" />
+          {/* <TextField title="هزینه تمام شده (ریال)" name="totalcost" type="number" /> */}
           <TextField title="مخاطب" name="audience" />
           <SelectField title="میهمانان" name="guests" data={PerosnsDataList} />
-          <TextField title="ارگان ها" name="organs" />
+          <SelectField title="ارگان ها" name="organs" data={organsData} />
+          {/* <TagField title="ارگان ها" name="organs" data={organsData} /> */}
           <TextField title="جمعیت" name="population" type="number" />
           <TexAreaField title="خلاصه فعالیت" name="description" rows={5} />
           <UploadField
